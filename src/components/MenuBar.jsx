@@ -14,20 +14,21 @@ function MenuBar() {
       </label>
       <nav className={styles.nav} id="setting-nav">
         <span className={styles.header}>Dashboard</span>
-        <NavLink to="/app/settings/profile-settings">Tasks</NavLink>
+        <NavLink to="/task">Tasks</NavLink>
         <NavLink to="/app/settings/change-password">Restricions</NavLink>
         <NavLink to="/app/settings/change-email">Analytic</NavLink>
         <NavLink to="/app/settings/change-email">Settings</NavLink>
       </nav>
     </div>
-          <div className={styles.home} />
           <span className={styles.name}>ContentGuard</span><span className={styles.name2}>Pro</span>
+          <input type="text" placeholder="Search Project" className="input input-bordered w-full max-w-xs" />
           <div className={styles.profile} />
           <input />
         <div className={styles.logo} />
-        <p>Jose Castro</p>
+        <p className={styles.jose}>Jose Castro</p>
           <div className={styles.avatar} />
       </nav>
+      <Outlet />
     </>
   );
 }

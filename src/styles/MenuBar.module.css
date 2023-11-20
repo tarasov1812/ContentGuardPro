@@ -18,11 +18,16 @@
 
 .name {
     font-size: 38px;
+    font-weight: bold;
+    font-family: 'Poppins Bold';
 }
 
 .name2 {
     font-size: 38px;
+    font-weight: bold;
+    font-family: 'Poppins Bold';
     color: #00AA9B;
+    margin-right: 50px;
 }
 
 .container a {
@@ -127,7 +132,6 @@ a {
     text-decoration: none;
 }
 
-____________
 .nav {
     
 }
@@ -156,6 +160,11 @@ ____________
 
 .header {
     margin-left: 10px;
+    font-weight: bold;
+}
+
+.jose {
+    font-size: 20px;
 }
 
 @media only screen and (min-width: 800px) {
