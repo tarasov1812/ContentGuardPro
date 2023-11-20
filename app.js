@@ -1,6 +1,7 @@
 import express from 'express';
 import fs from 'fs';
 import pkg from 'pg';
+import OpenAI from "openai";
 
 const { Pool } = pkg;
 
@@ -24,5 +25,19 @@ const pool = new Pool({
     rejectUnauthorized: false,
   },
 });
+
+const openai = new OpenAI({
+  apiKey: process.env.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,
+});
+
+const response = await openai.edits.create({
+  model: "text-davinci-edit-001",
+  input: "",
+  instruction: "delete from the text word Paddok",
+  temperature: 1,
+  top_p: 1,
+});
+
+console.log(response);
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
