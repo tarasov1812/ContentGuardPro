@@ -9,9 +9,9 @@ import "./App.css";
 const router = createBrowserRouter(createRoutesFromElements(
     <Route path="/" element={<MenuBar />}>
       <Route path="task" element={<Tasks />} />
-      <Route path="restrictions" element={<MenuBar />} />
-      <Route path="analytic" element={<MenuBar />} />
-      <Route path="settings" element={<MenuBar />} />
+      <Route path="restrictions" element={<Tasks />} />
+      <Route path="analytic" element={<Tasks />} />
+      <Route path="settings" element={<Tasks />} />
     </Route>,
 ));
 
