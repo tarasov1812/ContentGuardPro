@@ -7,5 +7,10 @@ export default defineConfig({
     outDir: './public',
     emptyOutDir: false,
   },
-  plugins: [react()]
+  plugins: [react()],
+  server: {
+    proxy: {
+      '/api/send-prompt': 'http://localhost:3000',
+    },
+  },
 })

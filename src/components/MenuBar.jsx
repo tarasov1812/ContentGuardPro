@@ -15,9 +15,9 @@ function MenuBar() {
       <nav className={styles.nav} id="setting-nav">
         <span className={styles.header}>Dashboard</span>
         <NavLink to="/task">Tasks</NavLink>
-        <NavLink to="/app/settings/change-password">Restricions</NavLink>
-        <NavLink to="/app/settings/change-email">Analytic</NavLink>
-        <NavLink to="/app/settings/change-email">Settings</NavLink>
+        <NavLink to="/restrictions">Restricions</NavLink>
+        <NavLink to="/analytic">Analytic</NavLink>
+        <NavLink to="/settings">Settings</NavLink>
       </nav>
     </div>
           <span className={styles.name}>ContentGuard</span><span className={styles.name2}>Pro</span>

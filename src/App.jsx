@@ -3,15 +3,17 @@ import {
   Route, RouterProvider, createBrowserRouter, createRoutesFromElements,
 } from 'react-router-dom';
 import MenuBar from "./components/MenuBar.jsx";
-import Tasks from "./components/Tasks.jsx"
+import Tasks from "./components/Tasks.jsx";
+import Trunk from "./components/Trunk.jsx"
 import "./App.css";
 
 const router = createBrowserRouter(createRoutesFromElements(
     <Route path="/" element={<MenuBar />}>
+      <Route index element={<Tasks />} />
       <Route path="task" element={<Tasks />} />
-      <Route path="restrictions" element={<Tasks />} />
-      <Route path="analytic" element={<Tasks />} />
-      <Route path="settings" element={<Tasks />} />
+      <Route path="restrictions" element={<Trunk />} />
+      <Route path="analytic" element={<Trunk />} />
+      <Route path="settings" element={<Trunk />} />
     </Route>,
 ));
 

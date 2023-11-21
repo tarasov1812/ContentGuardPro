@@ -2,16 +2,18 @@ import express from 'express';
 import fs from 'fs';
 import pkg from 'pg';
 import OpenAI from "openai";
+import bodyParser from 'body-parser';
+import axios from 'axios';
 
 const { Pool } = pkg;
 
 const app = express();
-
 // const main = fs.readFileSync('public/index.html', 'utf8');
 // app.get('/', (req, res) => res.type('html').send(main));
 
 app.use(express.static('public'));
 app.use(express.json());
+app.use(bodyParser.json());
 
 const port = process.env.PORT || 3000;
 
@@ -26,23 +28,50 @@ const pool = new Pool({
   },
 });
 
-const openai = new OpenAIApi({
-  key: 'YOUR_OPENAI_API_KEY',
-  // другие опции, если необходимо
+const openai = new OpenAI({
+  apiKey: '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',
 });
 
-async function main() {
-  const completion = await openai.completions.create({
-    model: "gpt-3.5-turbo-instruct",
-    prompt: "Say this is a test.",
-    max_tokens: 7,
-    temperature: 0,
-  });
+app.post('/api/send-prompt', async (req, res) => {
+  try {
+    const { prompt } = req.body;
 
-  console.log(completion);
-}
-main();
+    const openaiResponse = await axios.post(
+      'https://api.openai.com/v1/engines/gpt-3.5-turbo-instruct/completions',
+      {
+        prompt,
+        max_tokens: 50,
+        temperature: 0.7,
+      },
+      {
+        headers: {
+          'Authorization': `Bearer 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`, // Replace with your API key
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    console.log(prompt);
 
-console.log(response);
+    const completion = openaiResponse.data.choices[0].text.trim(); // Extract completion text
+
+    res.json({ completion });
+    console.log(completion);
+  } catch (error) {
+    console.error('Error:', error.response ? error.response.data : error.message);
+    res.status(500).json({ error: 'Failed to process the prompt' });
+  }
+});
+
+// async function main() {
+//   const completion = await openai.completions.create({
+//     model: "gpt-3.5-turbo-instruct",
+//     prompt: "Say this is a test.",
+//     max_tokens: 7,
+//     temperature: 0,
+//   });
+
+//   console.log(completion);
+// }
+// main();
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

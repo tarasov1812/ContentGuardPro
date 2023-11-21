@@ -1,0 +1,45 @@
+.contentForAll {
+    background-color: grey;
+    height: 100%;
+    width: 100%;
+}
+.content {
+    height: 100%;
+    width: 100%;
+    background-color: grey;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.h1 {
+    font-size: 30px;
+    margin: 10px 50px;
+}
+
+.h2 {
+    display: inline;
+    margin-right: 100px;
+    font-weight: bold;
+}
+
+.empty {
+    height: 10px;
+}
+
+.task {
+    background-color: #FFFFFF;
+    padding: 30px;
+    border-radius: 20px;
+    height: 700px;
+    width: 600px;
+}
+
+.task2 {
+    background-color: #FFFFFF;
+    margin-left: 50px;
+    padding: 30px;
+    border-radius: 20px;
+    height: 700px;
+    width: 600px;
+}
