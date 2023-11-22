@@ -13,6 +13,7 @@
 }
 
 .h1 {
+    font-family: 'Poppins';
     font-size: 30px;
     margin: 10px 50px;
 }
@@ -42,4 +43,22 @@
     border-radius: 20px;
     height: 700px;
     width: 600px;
+}
+
+.avatar {
+    width: 57px;
+    height: 57px;
+    background-size: cover;
+    border-radius: 50%;
+    margin-left: 12px;
+    background-image: url('../img/jose.png');
+    display: inline-block;
+}
+
+.jose {
+    font-size: 20px;
+    display: inline-block;
+    margin-right: 100px;
+    margin-left: 10px;
+    margin-bottom: 30px;
 }

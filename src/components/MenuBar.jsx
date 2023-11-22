@@ -24,7 +24,7 @@ function MenuBar() {
           <input type="text" placeholder="Search Project" className="input input-bordered w-full max-w-xs" />
           <div className={styles.profile} />
         <div className={styles.logo} />
-        <p className={styles.jose}>Jose Castro</p>
+        <p className={styles.jose}>José Castro</p>
           <div className={styles.avatar} />
       </nav>
       <Outlet />
