@@ -11,6 +11,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/send-prompt': 'http://localhost:3000',
+      '/api/post-to-twitter': 'http://localhost:3000'
     },
   },
 })
