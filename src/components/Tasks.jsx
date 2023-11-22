@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/Tasks.module.css';
 import axios from 'axios';
 
@@ -8,6 +8,32 @@ function Tasks() {
   const [response, setResponse] = useState('');
   const [response2, setResponse2] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
+  const [dbWords, setDbWords] = useState([]);
+
+  useEffect(() => {
+    fetchWordsFromDatabase(); // Вызываем при загрузке компонента
+  }, []);
+
+  const fetchWordsFromDatabase = async () => {
+    try {
+      const response = await axios.get('/api/words');
+      const words = response.data.words;
+      setDbWords(words);
+    } catch (error) {
+      console.error('Error fetching words:', error);
+    }
+  };
+
+  const filterWords = () => {
+  console.log(prompt + 'F');
+  const wordsArray = prompt.split(/\s+/); 
+  const filteredWords = wordsArray.filter(word => !dbWords.includes(word));
+  console.log(filteredWords + 'f');
+  console.log(dbWords);
+  const updatedPrompt2 = filteredWords.join(' '); 
+  setPrompt(updatedPrompt2);
+};
+
 
   const handleInputChange = (event) => {
     setPrompt(event.target.value);
@@ -22,19 +48,24 @@ function Tasks() {
     setResponse2('');
     try {
       let finalText = '';
+      let finalText2 = '';
     console.log(selectedOption);
       switch (selectedOption) {
-        case 'Check Grammar':
-          finalText = ' - write this phrase grammatically correct';
+        case 'Grammar Check':
+          finalText = 'Please correct any grammar mistakes in the following sentence: "';
+          finalText2 = 'Identify and list any grammatically incorrect words in the following sentence: "';
           break;
-        case 'Legal restrictions':
-          finalText = '- rewrite the text so that there are no legal mistakes';
+        case 'Political restrictions':
+          finalText = 'Please eliminate in the following sentence only political uncorrected sentences: "';
+          finalText2 = 'Please correct the following sentence while considering political restrictions: "';
           break;
-        case 'Social restrictions':
-          finalText = ' - rewrite the text politically correct';
+        case 'Profanity Check':
+          finalText = 'Please check the following sentence for profanity and provide a version without any inappropriate language: "';
+          finalText2 = 'Identify and list any profanity words in the following sentence: "';
           break;
         case 'Others':
-          finalText = prompt2;
+          finalText = 'Replace word/words like ' + prompt2 + ' with the synonims in the sentence: "';
+          finalText2 = 'Check and list how many times word/words like ' + prompt2 + ' in the sentence: "';
           break;
         default:
           finalText = 'Please select an option';
@@ -43,14 +74,14 @@ function Tasks() {
 
     //   setResponse(finalText);
     console.log(finalText);
-    let text = ' ' + prompt + ' - ' + finalText;
+    let text = finalText + prompt + '"';
     console.log(text);
       const res = await axios.post('/api/send-prompt', {
         prompt: text,
       });
 
       setResponse(res.data.completion);
-    let text2 = ' ' + prompt + ' what problems does this text has? write down the points';
+    let text2 = finalText2 + prompt + '"';
     console.log(text2);
     const res2 = await axios.post('/api/send-prompt', {
       prompt: text2,
@@ -60,6 +91,7 @@ function Tasks() {
     } catch (error) {
       console.error('Error:', error);
     }
+    filterWords();
   };
 
 
@@ -92,24 +124,24 @@ function Tasks() {
             <div className={styles.empty}/>
             <div className="form-control">
             <label className="label cursor-pointer">
-                <span className="label-text">Grammar check</span> 
-                <input type="radio" name="radio-10" className="radio checked:bg-red-500" checked={selectedOption === 'Check Grammar'}
-                  value="Check Grammar"
+                <span className="label-text">Grammar Check</span> 
+                <input type="radio" name="radio-10" className="radio checked:bg-red-500" checked={selectedOption === 'Grammar Check'}
+                  value="Grammar Check"
                   onChange={(e) => setSelectedOption(e.target.value)} 
                 />
             </label>
             </div>
             <div className="form-control">
             <label className="label cursor-pointer">
-                <span className="label-text">Legal restrictions</span> 
-                <input type="radio" name="radio-10" className="radio checked:bg-blue-500" checked={selectedOption === 'Legal restrictions'}
-                  value="Legal restrictions"
+                <span className="label-text">Political restrictions</span> 
+                <input type="radio" name="radio-10" className="radio checked:bg-blue-500" checked={selectedOption === 'Political restrictions'}
+                  value="Political restrictions"
                   onChange={(e) => setSelectedOption(e.target.value)} />
             </label>
             <label className="label cursor-pointer">
-                <span className="label-text">Social restricions</span> 
-                <input type="radio" name="radio-10" className="radio checked:bg-red-500" checked={selectedOption === 'Social restricions'}
-                  value="Social restricions"
+                <span className="label-text">Profanity Check</span> 
+                <input type="radio" name="radio-10" className="radio checked:bg-red-500" checked={selectedOption === 'Profanity Check'}
+                  value="Profanity Check"
                   onChange={(e) => setSelectedOption(e.target.value)} />
             </label>
             <label className="label cursor-pointer">
@@ -130,9 +162,9 @@ function Tasks() {
               value={response}
               readOnly
             ></textarea>
-            <h2 className={styles.h2}>Restricions found</h2>
+            <h2 className={styles.h2}>Restrictions found</h2>
             <textarea
-              placeholder="Restricions"
+              placeholder="Restrictions"
               className="textarea textarea-bordered textarea-lg w-full max-w-xs h-40 mt-4 text-red-500 mb-10"
               value={response2}
               readOnly
@@ -145,7 +177,7 @@ function Tasks() {
                 <option>TickTock</option>
                 <option>Insragramm</option>
             </select>
-            <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-accent w-20">
+            <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-accent w-20" >
               Post
             </button>
             </div>
