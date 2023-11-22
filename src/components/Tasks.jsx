@@ -25,11 +25,13 @@ function Tasks() {
   };
 
   const filterWords = () => {
-  const wordsArray = prompt2.split(/\s+/); 
+  console.log(prompt + 'F');
+  const wordsArray = prompt.split(/\s+/); 
   const filteredWords = wordsArray.filter(word => !dbWords.includes(word));
+  console.log(filteredWords + 'f');
+  console.log(dbWords);
   const updatedPrompt2 = filteredWords.join(' '); 
-  console.log(updatedPrompt2);
-  setPrompt2(updatedPrompt2);
+  setPrompt(updatedPrompt2);
 };
 
 
@@ -89,6 +91,7 @@ function Tasks() {
     } catch (error) {
       console.error('Error:', error);
     }
+    filterWords();
   };
 
 
@@ -159,9 +162,9 @@ function Tasks() {
               value={response}
               readOnly
             ></textarea>
-            <h2 className={styles.h2}>Restricions found</h2>
+            <h2 className={styles.h2}>Restrictions found</h2>
             <textarea
-              placeholder="Restricions"
+              placeholder="Restrictions"
               className="textarea textarea-bordered textarea-lg w-full max-w-xs h-40 mt-4 text-red-500 mb-10"
               value={response2}
               readOnly

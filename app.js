@@ -45,7 +45,7 @@ app.post('/api/send-prompt', async (req, res) => {
       },
       {
         headers: {
-          'Authorization': `Bearer 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`, // Replace with your API key
+          'Authorization': `Bearer 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`, // Replace with your API key
           'Content-Type': 'application/json',
         },
       }
