@@ -46,19 +46,24 @@ function Tasks() {
     setResponse2('');
     try {
       let finalText = '';
+      let finalText2 = '';
     console.log(selectedOption);
       switch (selectedOption) {
-        case 'Check Grammar':
-          finalText = ' - write this phrase grammatically correct';
+        case 'Grammar Check':
+          finalText = 'Please correct any grammar mistakes in the following sentence: "';
+          finalText2 = 'Identify and list any grammatically incorrect words in the following sentence: "';
           break;
-        case 'Legal restrictions':
-          finalText = '- rewrite the text so that there are no legal mistakes';
+        case 'Political restrictions':
+          finalText = 'Please eliminate in the following sentence only political uncorrected sentences: "';
+          finalText2 = 'Please correct the following sentence while considering political restrictions: "';
           break;
-        case 'Social restrictions':
-          finalText = ' - rewrite the text politically correct';
+        case 'Profanity Check':
+          finalText = 'Please check the following sentence for profanity and provide a version without any inappropriate language: "';
+          finalText2 = 'Identify and list any profanity words in the following sentence: "';
           break;
         case 'Others':
-          finalText = prompt2;
+          finalText = 'Replace word/words like ' + prompt2 + ' with the synonims in the sentence: "';
+          finalText2 = 'Check and list how many times word/words like ' + prompt2 + ' in the sentence: "';
           break;
         default:
           finalText = 'Please select an option';
@@ -67,21 +72,20 @@ function Tasks() {
 
     //   setResponse(finalText);
     console.log(finalText);
-    let text = ' ' + prompt + ' - ' + finalText;
+    let text = finalText + prompt + '"';
     console.log(text);
       const res = await axios.post('/api/send-prompt', {
         prompt: text,
       });
 
       setResponse(res.data.completion);
-    let text2 = ' ' + prompt + ' what problems does this text has? write down the points';
+    let text2 = finalText2 + prompt + '"';
     console.log(text2);
     const res2 = await axios.post('/api/send-prompt', {
       prompt: text2,
     });
 
     setResponse2(res2.data.completion);
-    filterWords();
     } catch (error) {
       console.error('Error:', error);
     }
@@ -117,24 +121,24 @@ function Tasks() {
             <div className={styles.empty}/>
             <div className="form-control">
             <label className="label cursor-pointer">
-                <span className="label-text">Grammar check</span> 
-                <input type="radio" name="radio-10" className="radio checked:bg-red-500" checked={selectedOption === 'Check Grammar'}
-                  value="Check Grammar"
+                <span className="label-text">Grammar Check</span> 
+                <input type="radio" name="radio-10" className="radio checked:bg-red-500" checked={selectedOption === 'Grammar Check'}
+                  value="Grammar Check"
                   onChange={(e) => setSelectedOption(e.target.value)} 
                 />
             </label>
             </div>
             <div className="form-control">
             <label className="label cursor-pointer">
-                <span className="label-text">Legal restrictions</span> 
-                <input type="radio" name="radio-10" className="radio checked:bg-blue-500" checked={selectedOption === 'Legal restrictions'}
-                  value="Legal restrictions"
+                <span className="label-text">Political restrictions</span> 
+                <input type="radio" name="radio-10" className="radio checked:bg-blue-500" checked={selectedOption === 'Political restrictions'}
+                  value="Political restrictions"
                   onChange={(e) => setSelectedOption(e.target.value)} />
             </label>
             <label className="label cursor-pointer">
-                <span className="label-text">Social restricions</span> 
-                <input type="radio" name="radio-10" className="radio checked:bg-red-500" checked={selectedOption === 'Social restricions'}
-                  value="Social restricions"
+                <span className="label-text">Profanity Check</span> 
+                <input type="radio" name="radio-10" className="radio checked:bg-red-500" checked={selectedOption === 'Profanity Check'}
+                  value="Profanity Check"
                   onChange={(e) => setSelectedOption(e.target.value)} />
             </label>
             <label className="label cursor-pointer">
