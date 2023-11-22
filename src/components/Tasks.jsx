@@ -119,15 +119,6 @@ function Tasks() {
                   onChange={(e) => setSelectedOption(e.target.value)} />
             </label>
             <input type="text" placeholder="input your restricion here" className="input input-bordered w-full max-w-xs mb-10" onChange={handleInputChange2}/>
-            <hr />
-            <select className="select select-bordered mt-10 w-40 inline">
-                <option disabled selected>Post to</option>
-                <option>Twitter</option>
-                <option>Facebook</option>
-            </select>
-            <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-accent w-20">
-              Post
-            </button>
             </div>
             </div>
             <div className={styles.task2}>
@@ -142,10 +133,21 @@ function Tasks() {
             <h2 className={styles.h2}>Restricions found</h2>
             <textarea
               placeholder="Restricions"
-              className="textarea textarea-bordered textarea-lg w-full max-w-xs h-40 mt-4 text-red-500"
+              className="textarea textarea-bordered textarea-lg w-full max-w-xs h-40 mt-4 text-red-500 mb-10"
               value={response2}
               readOnly
             ></textarea>
+            <hr />
+            <select className="select select-bordered mt-10 w-40 inline mr-20">
+                <option disabled selected>Post to</option>
+                <option>Twitter</option>
+                <option>Facebook</option>
+                <option>TickTock</option>
+                <option>Insragramm</option>
+            </select>
+            <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-accent w-20">
+              Post
+            </button>
             </div>
           </div>
           </div>   
