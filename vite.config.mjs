@@ -11,6 +11,9 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/send-prompt': 'http://localhost:3000',
+      '/api/restr': 'http://localhost:3000',
+      '/api/filter-words': 'http://localhost:3000',
+      '/api/words': 'http://localhost:3000',
     },
   },
 })

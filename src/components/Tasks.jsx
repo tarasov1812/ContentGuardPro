@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/Tasks.module.css';
 import axios from 'axios';
 
@@ -8,6 +8,30 @@ function Tasks() {
   const [response, setResponse] = useState('');
   const [response2, setResponse2] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
+  const [dbWords, setDbWords] = useState([]);
+
+  useEffect(() => {
+    fetchWordsFromDatabase(); // Вызываем при загрузке компонента
+  }, []);
+
+  const fetchWordsFromDatabase = async () => {
+    try {
+      const response = await axios.get('/api/words');
+      const words = response.data.words;
+      setDbWords(words);
+    } catch (error) {
+      console.error('Error fetching words:', error);
+    }
+  };
+
+  const filterWords = () => {
+  const wordsArray = prompt2.split(/\s+/); 
+  const filteredWords = wordsArray.filter(word => !dbWords.includes(word));
+  const updatedPrompt2 = filteredWords.join(' '); 
+  console.log(updatedPrompt2);
+  setPrompt2(updatedPrompt2);
+};
+
 
   const handleInputChange = (event) => {
     setPrompt(event.target.value);
@@ -57,6 +81,7 @@ function Tasks() {
     });
 
     setResponse2(res2.data.completion);
+    filterWords();
     } catch (error) {
       console.error('Error:', error);
     }
@@ -145,7 +170,7 @@ function Tasks() {
                 <option>TickTock</option>
                 <option>Insragramm</option>
             </select>
-            <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-accent w-20">
+            <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-accent w-20" >
               Post
             </button>
             </div>
