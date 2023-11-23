@@ -17,33 +17,27 @@ function Tasks() {
     setPrompt2(event.target.value);
   };
 
+  const handleCheckboxChange = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setSelectedOption(prevSelectedOptions => [...prevSelectedOptions, value]);
+    } else {
+      setSelectedOption(prevSelectedOptions =>
+        prevSelectedOptions.filter(option => option !== value)
+      );
+    }
+  };
+
   const handleSubmit = async () => {
     setResponse('');
     setResponse2('');
     try {
-      let finalText = '';
-    console.log(selectedOption);
-      switch (selectedOption) {
-        case 'Check Grammar':
-          finalText = ' - write this phrase grammatically correct';
-          break;
-        case 'Legal restrictions':
-          finalText = '- rewrite the text so that there are no legal mistakes';
-          break;
-        case 'Social restrictions':
-          finalText = ' - rewrite the text politically correct';
-          break;
-        case 'Others':
-          finalText = prompt2;
-          break;
-        default:
-          finalText = 'Please select an option';
-          break;
-      }
-
-    //   setResponse(finalText);
-    console.log(finalText);
-    let text = ' ' + prompt + ' - ' + finalText;
+      // let finalText = 'Please correct any grammar mistakes in the following sentence and Please eliminate in the following sentence only political uncorrected sentences "';
+      // let finalText2 = 'Identify and list any grammatically incorrect words in the following sentence and Please eliminate in the following sentence only political uncorrected sentences and make the list of errors"';
+      let finalText = '"Correct grammar mistakes and political uncorrected sentences"';
+      let finalText2 = '"Make the list of grammar error and politically incorrect context in this text"'
+    
+    let text = finalText + prompt + '"';
     console.log(text);
       const res = await axios.post('/api/send-prompt', {
         prompt: text,
@@ -91,33 +85,58 @@ function Tasks() {
             </button>
             <div className={styles.empty}/>
             <div className="form-control">
-            <label className="label cursor-pointer">
-                <span className="label-text">Grammar check</span> 
-                <input type="radio" name="radio-10" className="radio checked:bg-red-500" checked={selectedOption === 'Check Grammar'}
-                  value="Check Grammar"
-                  onChange={(e) => setSelectedOption(e.target.value)} 
-                />
-            </label>
-            </div>
             <div className="form-control">
-            <label className="label cursor-pointer">
-                <span className="label-text">Legal restrictions</span> 
-                <input type="radio" name="radio-10" className="radio checked:bg-blue-500" checked={selectedOption === 'Legal restrictions'}
-                  value="Legal restrictions"
-                  onChange={(e) => setSelectedOption(e.target.value)} />
-            </label>
-            <label className="label cursor-pointer">
-                <span className="label-text">Social restricions</span> 
-                <input type="radio" name="radio-10" className="radio checked:bg-red-500" checked={selectedOption === 'Social restricions'}
-                  value="Social restricions"
-                  onChange={(e) => setSelectedOption(e.target.value)} />
-            </label>
-            <label className="label cursor-pointer">
-                <span className="label-text">Others</span> 
-                <input type="radio" name="radio-10" className="radio checked:bg-blue-500" checked={selectedOption === 'Others'}
-                  value="Others"
-                  onChange={(e) => setSelectedOption(e.target.value)} />
-            </label>
+  <label className="label cursor-pointer">
+    <span className="label-text">Grammar Check</span> 
+    <input 
+      type="checkbox" 
+      name="checkbox-1" 
+      className="checkbox checkbox-info" 
+      checked={selectedOption.includes('Grammar Check')}
+      value="Grammar Check"
+      onChange={handleCheckboxChange} 
+    />
+  </label>
+</div>
+<div className="form-control">
+  <label className="label cursor-pointer">
+    <span className="label-text">Political restrictions</span> 
+    <input 
+      type="checkbox" 
+      name="checkbox-2" 
+      className="checkbox checkbox-info" 
+      checked={selectedOption.includes('Political restrictions')}
+      value="Political restrictions"
+      onChange={handleCheckboxChange} 
+    />
+  </label>
+</div>
+<div className="form-control">
+  <label className="label cursor-pointer">
+    <span className="label-text">Profanity Check</span> 
+    <input 
+      type="checkbox" 
+      name="checkbox-3" 
+      className="checkbox checkbox-info" 
+      checked={selectedOption.includes('Profanity Check')}
+      value="Profanity Check"
+      onChange={handleCheckboxChange} 
+    />
+  </label>
+</div>
+<div className="form-control">
+  <label className="label cursor-pointer">
+    <span className="label-text">Others</span> 
+    <input 
+      type="checkbox" 
+      name="checkbox-4" 
+      className="checkbox checkbox-info" 
+      checked={selectedOption.includes('Others')}
+      value="Others"
+      onChange={handleCheckboxChange} 
+    />
+  </label>
+</div>
             <input type="text" placeholder="input your restricion here" className="input input-bordered w-full max-w-xs mb-10" onChange={handleInputChange2}/>
             </div>
             </div>
