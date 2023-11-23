@@ -7,7 +7,7 @@
         flex-direction: row;
         align-items: center;
         width: 100%;
-        justify-content: unset;
+        justify-content: space-between;
         position: sticky;
         margin-top: unset;
         margin-bottom: auto;
@@ -95,7 +95,9 @@
     height: 57px;
     background-size: cover;
     border-radius: 50%;
-    margin: 12px auto;
+    margin: 12px 0;
+    margin-left: 1px;
+    margin-right: 20px;
     background-image: url('../img/jose.png');
 }
 
@@ -103,8 +105,8 @@
     .avatar {
         width: 48px;
         height: 48px;
-        margin-left: auto;
-        margin-right: 16px;
+        margin-left: 1px;
+        margin-right: 40px;
     }
 }
 
@@ -119,8 +121,8 @@
         height: 56px;
         background-image: url('../img/bell.png');
         background-size: cover;
-        margin-left: auto;
-        margin-right: auto;
+        margin-left: 10px;
+        margin-right: 10px;
     }
 }
 

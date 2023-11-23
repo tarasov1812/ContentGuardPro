@@ -1,0 +1,31 @@
+.container {
+    background-color: grey;
+    height: 100%;
+    width: 100%; 
+}
+.content {
+    padding: 20px;
+    margin-left: 500px;
+    border-radius: 20px;
+    height: 500px;
+    width: 400px;
+    background-color: #FFFFFF;
+}
+
+.empty {
+    background-color: grey;
+    height: 30px;
+    width: 100%; 
+}
+
+.container2 {
+    background-color: grey;
+    height: 200px;
+    width: 100%;
+}
+
+.h2 {
+    font-size: 28px;
+    font-family: 'Poppins';
+    margin-bottom: 20px;
+}

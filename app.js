@@ -28,9 +28,9 @@ const pool = new Pool({
   },
 });
 
-const openai = new OpenAI({
-  apiKey: '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',
-});
+// const openai = new OpenAI({
+//   apiKey: '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',
+// });
 
 app.post('/api/send-prompt', async (req, res) => {
   try {
@@ -45,7 +45,7 @@ app.post('/api/send-prompt', async (req, res) => {
       },
       {
         headers: {
-          'Authorization': `Bearer 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`, // Replace with your API key
+          'Authorization': `Bearer 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`, // Replace with your API key
           'Content-Type': 'application/json',
         },
       }
@@ -62,16 +62,36 @@ app.post('/api/send-prompt', async (req, res) => {
   }
 });
 
-// async function main() {
-//   const completion = await openai.completions.create({
-//     model: "gpt-3.5-turbo-instruct",
-//     prompt: "Say this is a test.",
-//     max_tokens: 7,
-//     temperature: 0,
-//   });
+app.post('/api/restr', async (req, res) => {
+  try {
+    const { word } = req.body;
 
-//   console.log(completion);
-// }
-// main();
+    const insertQuery = 'INSERT INTO restrictions (word) VALUES ($1) RETURNING *';
+    const values = [word];
+
+    const result = await pool.query(insertQuery, values);
+
+    res.status(201).json({
+      status: 'success',
+      message: 'Inserted into restrictions table',
+      data: result.rows[0],
+    });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Failed to insert into restrictions table' });
+  }
+});
+
+app.get('/api/words', async (req, res) => {
+  try {
+    const dbWordsQuery = 'SELECT word FROM restrictions';
+    const dbWordsResult = await pool.query(dbWordsQuery);
+    const dbWords = dbWordsResult.rows.map(row => row.word.toLowerCase());
+    res.json({ words: dbWords });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Failed to fetch words from the database' });
+  }
+});
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
